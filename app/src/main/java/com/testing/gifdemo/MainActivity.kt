@@ -1,6 +1,5 @@
 package com.testing.gifdemo
 
-import android.R.attr
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.widget.ImageView
@@ -13,7 +12,8 @@ import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 
-
+const val INITIAL_LOOP_COUNT = 1 //has to be minimum 1 other wise it will continue
+const val CLICK_LOOP_COUNT = 5
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                     dataSource: DataSource?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    resource?.setLoopCount(1)
+                    resource?.setLoopCount(INITIAL_LOOP_COUNT)
                     resource?.registerAnimationCallback(object :
                         Animatable2Compat.AnimationCallback() {
                         override fun onAnimationEnd(drawable: Drawable) {
@@ -59,6 +59,7 @@ class MainActivity : AppCompatActivity() {
                 if (drawable.isRunning) {
                     drawable.stop()
                 } else {
+                    drawable.setLoopCount(CLICK_LOOP_COUNT)
                     drawable.start()
                 }
 
